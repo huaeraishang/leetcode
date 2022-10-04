@@ -15,7 +15,11 @@ var MyStack = function() {
  * @return {void}
  */
 MyStack.prototype.push = function(x) {
-    this.array.unshift(x)
+    const length = this.array.length
+    this.array.push(x)
+    for (let i = 0; i < length; i++) {
+        this.array.push(this.array.shift())
+    }
 };
 
 /**
