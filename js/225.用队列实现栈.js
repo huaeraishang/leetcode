@@ -7,7 +7,7 @@
 // @lc code=start
 
 var MyStack = function() {
-    this.array = []
+    this.queue = []
 };
 
 /** 
@@ -15,32 +15,34 @@ var MyStack = function() {
  * @return {void}
  */
 MyStack.prototype.push = function(x) {
-    const length = this.array.length
-    this.array.push(x)
-    for (let i = 0; i < length; i++) {
-        this.array.push(this.array.shift())
-    }
+   this.queue.push(x)
 };
 
 /**
  * @return {number}
  */
 MyStack.prototype.pop = function() {
-    return this.array.shift()
+    const len = this.queue.length
+    for (let i = 0; i < len - 1; i++) {
+        this.queue.push(this.queue.shift())
+    }
+    return this.queue.shift()
 };
 
 /**
  * @return {number}
  */
 MyStack.prototype.top = function() {
-    return this.array[0]
+    const item = this.pop()
+    this.queue.push(item)
+    return item
 };
 
 /**
  * @return {boolean}
  */
 MyStack.prototype.empty = function() {
-    return this.array.length === 0
+    return this.queue.length === 0
 };
 
 /**

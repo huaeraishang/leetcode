@@ -7,7 +7,8 @@
 // @lc code=start
 
 var MyQueue = function() {
-    this.stack = []
+    this.inStack = []
+    this.outStack = []
 };
 
 /** 
@@ -15,33 +16,41 @@ var MyQueue = function() {
  * @return {void}
  */
 MyQueue.prototype.push = function(x) {
-    const length = this.stack.length
-    this.stack.unshift(x)
-    for (let i = 0; i < length; i++) {
-        this.stack.unshift(this.stack.pop())
-    }
+    this.inStack.push(x)
 };
 
 /**
  * @return {number}
  */
 MyQueue.prototype.pop = function() {
-    return this.stack.shift()
+    if (this.outStack.length <= 0) {
+        this.in2out()
+    }
+    return this.outStack.pop()
 };
 
 /**
  * @return {number}
  */
 MyQueue.prototype.peek = function() {
-    return this.stack[0]
+    if (this.outStack.length <= 0) {
+        this.in2out()
+    }
+    return this.outStack[this.outStack.length - 1]
 };
 
 /**
  * @return {boolean}
  */
 MyQueue.prototype.empty = function() {
-    return this.stack.length === 0
+    return this.inStack.length === 0 && this.outStack.length === 0
 };
+
+MyQueue.prototype.in2out = function() {
+    while (this.inStack.length > 0) {
+        this.outStack.push(this.inStack.pop())
+    }
+}
 
 /**
  * Your MyQueue object will be instantiated and called as such:
