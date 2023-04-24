@@ -28,15 +28,15 @@ var distance = function (nums) {
         let absSum = 0
         // 设置的相对于原下标数组的下标位置
         sameNumOrderMap.set(item, sameNumOrderMap.has(item) ? sameNumOrderMap.get(item) + 1 : 0)
-        // 前缀合数组下标比原数组下标大1
-        const curIndex = sameNumOrderMap.get(item) + 1
+        // 下标数组中当前元素的下标
+        const curIndex = sameNumOrderMap.get(item)
         let indexs = map.get(item)
         // indexs长度大于2，代表有相同的数
         if (indexs.length > 2) {
-            // 使用curIndex - 1, 不能包含curIndex这个位置的数；curIndex下标是针对前缀和数组，和j相乘的是指原下标数组的元素个数，不能搞混
-            const left = Math.abs(indexs[curIndex - 1] - j * (curIndex - 1))
-            // indexs[curIndex] 包含了原下标数组curIndex - 1及其之前的位置的元素的和
-            const right = Math.abs(indexs[indexs.length - 1] - indexs[curIndex] - (indexs.length - 1 - curIndex) * j)
+            // 前缀和数组中使用原数组的curIndex, 代表不包含curIndex这个位置的数；和j相乘的是指原下标数组的元素个数
+            const left = Math.abs(indexs[curIndex] - j * curIndex)
+            // indexs[curIndex + 1] 包含了原下标数组curIndex及其之前的位置的元素的和
+            const right = Math.abs(indexs[indexs.length - 1] - indexs[curIndex + 1] - (indexs.length - 1 - curIndex - 1) * j)
             absSum += left
             absSum += right
         }
