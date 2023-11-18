@@ -19,20 +19,18 @@
  * @return {number}
  */
 var guessNumber = function(n) {
-    let left = 1
-    let right = n
-    while (left < right) {
-        let mid = left + ((right - left) >> 1)
-        if (guess(mid) === -1) {
-            right = mid
-        } else if (guess(mid) === 1) {
-            left = mid + 1
-        } else {
-            return mid
-        }
+  let left = 1
+  let right = n
+  while (left <= right) {
+    let mid = left + Math.ceil((right - left) / 2)
+    if (guess(mid) === -1) {
+      right = mid - 1
+    } else if (guess(mid) === 1) {
+      left = mid + 1
+    } else if (guess(mid) === 0) {
+      return mid
     }
-    // left和right相等
-    return left
+  }
 };
 // @lc code=end
 
